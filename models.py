@@ -1,11 +1,15 @@
+import json
+
 class Zoologico:
     def __init__(self):
+        self.tipos_habitats = ["Selvatico","Desertico","Polar","Acuatico"]
         self.habitats = []
         self.animales = []
         self.url = []
 
     def cargarInfo(self):
-        pass
+        with open('info.json','r') as f:
+            data = json.loads(f.read())
     
     def agregar_animal(self):
         pass

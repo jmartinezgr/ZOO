@@ -1,0 +1,45 @@
+{
+    "Habitats":[
+        {   "Nombre":"Sabana",
+            "Tipo":["Selvatico","Desertico"],
+            "Espacio_disponible":5,
+            "Espacios_ocupados":2,
+            "Temperatura": "Calido",
+            "Dieta":["Carnivora","Omnivora"],
+            "Tipo_animal":["Vertebrados","Invertebrados"],
+            "Especies": ["Mamiferos","Aves","Insectos","Reptiles"]
+        },
+        {
+            "Nombre":"Oceano",
+            "Tipo":["Acuatico"],
+            "Espacio_disponible":10,
+            "Espacios_ocupados":1,
+            "Temperatura": "Fria",
+            "Dieta":["Carnivora","Omnivora","Hervibora"],
+            "Tipo_animal":["Vertebrados","Invertebrados"],
+            "Especies": ["Mamiferos","Peces","Insectos"]
+        }
+        ],
+    "Animales":[
+        {
+            "Nombre":"Leon",
+            "Edad":"2 años",
+            "Tamaño":"Mediano",
+            "Tipo_de_alimentacion":"Carnivora",
+            "Temperatura":["Calido","Templado"],
+            "Salud":"Saludable",
+            "Tipo":"Vertebrados",
+            "Especie":"Mamiferos"
+        },
+        {
+            "Nombre":"Salmon",
+            "Edad":"3 meses",
+            "Tamaño":"Pequeño",
+            "Tipo_de_alimentacion":"Carnivora",
+            "Temperatura":["Frio","Templado"],
+            "Salud":"Saludable",
+            "Tipo":"Vertebrados",
+            "Especie":"Peces" 
+        }
+    ]
+}
