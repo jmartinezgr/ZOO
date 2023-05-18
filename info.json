@@ -23,23 +23,29 @@
     "Animales":[
         {
             "Nombre":"Leon",
-            "Edad":"2 años",
+            "Edad":2,
             "Tamaño":"Mediano",
             "Tipo_de_alimentacion":"Carnivora",
             "Temperatura":["Calido","Templado"],
             "Salud":"Saludable",
             "Tipo":"Vertebrados",
-            "Especie":"Mamiferos"
+            "Especie":"Mamiferos",
+            "Comidas":5,
+            "Veces_Juego":2,
+            "Horas_sueño":8
         },
         {
             "Nombre":"Salmon",
-            "Edad":"3 meses",
+            "Edad":0.2,
             "Tamaño":"Pequeño",
             "Tipo_de_alimentacion":"Carnivora",
             "Temperatura":["Frio","Templado"],
             "Salud":"Saludable",
             "Tipo":"Vertebrados",
-            "Especie":"Peces" 
+            "Especie":"Peces",
+            "Comidas":3,
+            "Veces_Juego":3,
+            "Horas_sueño":4
         }
     ]
 }
