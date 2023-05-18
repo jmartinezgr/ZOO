@@ -39,51 +39,117 @@ class Animales:
             return (False,f'{self.nombre} ya comio suficiente hoy')
         
     def dormir(self,horas):
-        dia_actual = date.today() #Tomamos el dia actual para saber si ya paso un dia y comparar las comidas diarias
+        dia_actual = date.today() #Tomamos el dia actual para saber si ya paso un dia y comparar el tiempo dormido
         permiso = True
         if dia_actual == self.dia:
-            if (self.horas_sueño_permitidas-self.horas_sueño_tomadas) < horas:
+            if (self.horas_sueño_permitidas-self.horas_sueño_tomadas) < horas: #Comparamos el tiempo dormido en el dia y el ingresado por el usuario
                 permiso = False
         else:
-            self.dia = dia_actual
-            self.horas_sueño_tomadas = 0
-            if (self.horas_sueño_permitidas-self.horas_sueño_tomadas) < horas:
+            self.dia = dia_actual #Actualizamos el dia actual
+            self.horas_sueño_tomadas = 0 #Reiniciamos el valor
+            if (self.horas_sueño_permitidas-self.horas_sueño_tomadas) < horas: #Si la cantidad de horas supera las permitidas se niega el permiso
                 permiso = False
 
         if permiso == True:
-            self.horas_sueño_tomadas+=horas 
-            return (True,f'{self.nombre} esta durmiendo')
+            self.horas_sueño_tomadas+=horas #Si el permiso es concedido, se suma las horas que se duerme 
+            return (True,f'{self.nombre} esta durmiendo') #Se devuelve un mensaje y una confirmacion
         else:
-            return (False, f'{self.nombre} no tiene permitido esa cantidad de horas de sueño')
+            return (False, f'{self.nombre} no tiene permitido esa cantidad de horas de sueño') 
+            #Si no se permite la accion, se envia un mensaje de negacion
         
     def jugar(self):
-        dia_actual = date.today()
+        dia_actual = date.today() #Comprobamos el dia actual para comparar con el almacenadao
         permiso = True
         if dia_actual == self.dia:
-            if self.veces_jugadas == self.veces_jugar:
+            if self.veces_jugadas == self.veces_jugar: #Si se alcanzaron las veces para jugar por dia se niega la accion
                 permiso = False
         else:
-            self.dia = dia_actual
-            self.veces_jugadas = 0
+            self.dia = dia_actual #Se actualiza el dia
+            self.veces_jugadas = 0 #Se reinicia el contador
         
         if permiso:
             return (True, f'{self.nombre} esta jugando')
         else:
             return (False,f'{self.nombre} no puedes jugar mas por hoy')
+        
+    def guardar_info(self):
+        pass
 
-class Insectos(Animales):
+class Insectos(Animales): #Clase insectos, heredada de Animales
     def __init__(self, nombre, edad, tamaño, dieta, comidas,temperatura,salud,habitat):
-        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, -1, -1)  
-        self.tipo = 'Invertebrados'
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, -1, -1)  #Se definen parametros como constantes propias de los insectos
+        self.tipo = 'Invertebrados'                                                #Los insectos no juegan, ni duermen
+        self.temperatura = temperatura                                             #Y son invertebrados
+        self.salud = salud                                                         #Se inicializan las variables del objeto
+        self.habitat = habitat
+
+    def dormir(self, horas=0): #Se sobreescribe y sobrecarga el metodo dormir, ya que los insectos tienen estado de reposo
+        return f'El/la {self.nombre} es un insecto, estos animales aunque entran en estado de reposo no tienen tiempo estimado para dormir'
+    
+    def jugar(self): #Se sobrescribe el metodo jugar, ya que los insectos no tienen esa capacidad
+        return f'El/la {self.nombre} es un insecto, son animales sin la capacidad de jugar'
+    
+class Mamiferos(Animales): #Clase mamiferos, heredada de Animales
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,jugar,temperatura,salud,habitat):
+        super().__init__(nombre, edad, tamaño, dieta,'Mamiferos', comidas,dormir,jugar)  #Se usa el constructor de la clase padre
+        self.tipo = 'Vertebrados'
+        self.temperatura = temperatura
+        self.salud = salud
+        self.habitat = habitat #Esta clase no sobreescribe los metodos de la padre ya que los mamiferos realizan las 3 acciones
+
+class Aves(Animales): #Clase aves, herenciado de Animales
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,temperatura,salud,habitat):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, dormir, -1)  
+        self.tipo = 'Vertebrados'
         self.temperatura = temperatura
         self.salud = salud
         self.habitat = habitat
 
-    def dormir(self, horas=0):
-        return f'El/la {self.nombre} es un insecto, estos animales aunque entran en estado de reposo no tienen tiempo estimado para dormir'
+    def jugar(self): #Se sobre escribe el metodo jugar de la clase aves, dependiendo de su tamaño
+        if self.tamaño == 'pequeño':
+            return f'El/la {self.nombre} le tiraste semillas, y vino revoloteando' 
+        else:
+            return f'El/la {self.nombre} es una especie demasiado grande para jugar'
     
-    def jugar(self):
-        return f'El/la {self.nombre} es un insecto, son animales sin la capacidad de jugar'
+class Peces(Animales): #Clase Peces, heredado de animales
+    def __init__(self, nombre, edad, tamaño, dieta,vertebrado ,comidas,temperatura,salud,habitat):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos',comidas, -1, -1)  
+        if vertebrado:    #En la categoria de peces existen vertebrados e invertebrados, asi que se agrega un capo al constructor
+            self.tipo = 'Vertebrados'
+        else: 
+            self.tipo = 'Invertebrados' 
+
+        self.temperatura = temperatura
+        self.salud = salud
+        self.habitat = habitat
+
+    def dormir(self, horas=0): #Se sobre escribe el metodo dormir
+        return f'El/la {self.nombre} es un pez, estos animales aunque entran en estado de reposo no tienen tiempo estimado para dormir'
+    
+    def jugar(self): #Se sobreescribe el metodo jugar
+        return f'El/la {self.nombre} es un pez, son animales sin la capacidad de jugar'
+
+class Anfibios(Animales): #Clase Anfibios, heredado de animales
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,temperatura,salud,habitat):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas,dormir, -1)  
+        self.tipo = 'Vertebrados'
+        self.temperatura = temperatura
+        self.salud = salud
+        self.habitat = habitat
+
+    def jugar(self): #Se sobreescribe el metodo jugar 
+        return f'El/la {self.nombre} esta dandose un chapuzon, super divertido!!!   '
+
+class Reptiles(Animales):
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,temperatura,salud,habitat):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, dormir, -1)  
+        self.tipo = 'Vertebrados'
+        self.temperatura = temperatura
+        self.salud = salud
+        self.habitat = habitat
+
+    def jugar(self): #Se sobre escribe el metodo jugar
+        return f'El/la {self.nombre} esta tomando el sol, esta bastante relajado'
 
 class Comida:
     def __init__(self, nombre, dietas, tamaño):
