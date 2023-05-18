@@ -2,6 +2,19 @@ import json
 from datetime import date
 import os
 
+def reemplazar_enies(palabra):
+    if type(palabra) == str:
+        nueva = palabra.replace("ñ","ni/")
+        return nueva
+    elif type(palabra) == list:
+        for i in range(len(palabra)):
+            palabra[i] = palabra[i].replace('ñ',"ni/")
+        return palabra
+ 
+def color_enies(palabra):
+    nueva = palabra.replace("ni/","ñ")
+    return nueva
+
 #Instanciamos la clase animales que luego heredaremos a cada tipo de animal
 class Animales:
     def __init__(self,nombre,edad,tamaño,dieta,especie,comidas,dormir,jugar,imagen):
@@ -19,13 +32,16 @@ class Animales:
         self.dia = date.today() #Se almacenara en primera instancia el dia que se crea el animal
 
         nombre_archivo = imagen.name
+        """
         ruta_guardado = os.path.join(os.getcwd()+'images/', nombre_archivo)
         with open(ruta_guardado, "wb") as archivo:
             archivo.write(imagen.getbuffer())
         if os.path.exists(ruta_guardado):
             self.Imagen = ruta_guardado
         else:
-            self.Imagen = os.path.join(os.getcwd()+'/ZOO/images/', 'imagen_generica.png')
+            self.Imagen = os.path.join(os.getcwd()+'/ZOO/images/', 'imagen_generica.png')"""
+        
+        self.Imagen = " "
         
 
     def comer(self,comida):
@@ -84,41 +100,44 @@ class Animales:
         else:
             return (False,f'{self.nombre} no puedes jugar mas por hoy')
         
-    def guardar_info(self):
+    def guardar_info(self,datos=None):
         try:    
-            with open('info.json','r') as f:
+            with open('info.json','r',encoding='utf-8') as f:
                 data = json.loads(f.read())
         except:
-            with open('python\ZOO\info.json','r') as f: 
+            with open('python\ZOO\info.json','r', encoding='utf-8') as f: 
                 data = json.loads(f.read())
-
-        nuevo_animal = {
-            "Nombre":self.nombre,
-            "Edad":self.edad,
-            "Tamaño": self.tamaño,
-            "Dieta":self.dieta,
-            "Temperatura":self.temperatura,
-            "Salud":self.salud,
-            "Tipo":self.tipo,
-            "Especie":self.especie,
-            "comidas_permitidas":self.comidas_permitidas,
-            "comidas_ingeridas":self.comidas_ingeridas,
-            "veces_jugar":self.veces_jugar,
-            "veces_jugadas":self.veces_jugadas,
-            "horas_sueño_permitidas":self.horas_sueño_permitidas,
-            "horas_sueño_tomadas": self.horas_sueño_tomadas,
-            "Habitat":self.habitat,
-            "Imagen":self.Imagen
-        } 
+        
+        if datos == None:
+            nuevo_animal = {
+                "Nombre":reemplazar_enies(self.nombre),
+                "Edad":self.edad,
+                "Tamanio":reemplazar_enies(self.tamaño),
+                "Dieta":(self.dieta),
+                "Temperatura":reemplazar_enies(self.temperatura),
+                "Salud":reemplazar_enies(self.salud),
+                "Tipo":reemplazar_enies(self.tipo),
+                "Especie":reemplazar_enies(self.especie),
+                "comidas_permitidas": (self.comidas_permitidas),
+                "comidas_ingeridas":(self.comidas_ingeridas),
+                "veces_jugar":(self.veces_jugar),
+                "veces_jugadas":(self.veces_jugadas),
+                "horas_suenio_permitidas":(self.horas_sueño_permitidas),
+                "horas_suenio_tomadas":(self.horas_sueño_tomadas),
+                "Habitat":reemplazar_enies(self.habitat),
+                "Imagen":self.Imagen
+            } 
+        else:
+            nuevo_animal = datos
 
         data['Animales'].append(nuevo_animal)
 
         try:
             with open('python\ZOO\info.json','w') as f:
-                f.write(json.dumps(data))
+                f.write(json.dumps(data,ensure_ascii=False))
         except:
             with open('info.json','w') as f:    
-                f.write(json.dumps(data))
+                f.write(json.dumps(data,ensure_ascii=False))
 
 class Insectos(Animales): #Clase insectos, heredada de Animales
     def __init__(self, nombre, edad, tamaño, dieta, comidas,temperatura,salud,habitat,imagen):
@@ -216,6 +235,7 @@ class Habitat():
 
     def agregar_animal(self,animal):
         pass
+        #if animal.
 
 
 class Zoologico:
@@ -242,11 +262,23 @@ class Zoologico:
     def mostrar_habitats(self):
         pass
 
-"""
-insecto_nuevo = Insectos('Hormiga',0.16,'pequeño','Omnivora',8,['Tropial','Templado','Calido'],'Saludable','Sabana')
+class image():
+    def __init__(self,nombre):
+        self.name = nombre
+
+
+imagen = image('hormiga.png')
+
+insecto_nuevo = Insectos('Hormiga',0.16,'pequeño','Omnivora',8,['Tropical','Templado','Calido'],'Saludable','Sabana',imagen=imagen)
 comida_nueva = Comida('Semillas',['Omnivora','Hervivoros'],'pequeño')
 #print(insecto_nuevo.jugar())
 #print(insecto_nuevo.dormir())
 #print(insecto_nuevo.comer(comida=comida_nueva)[1])
 insecto_nuevo.guardar_info()
-"""
+
+
+
+with open('info.json','r') as f: 
+    data = json.loads(f.read())
+
+print(data['Animales'][2])
