@@ -1,8 +1,10 @@
 import json
 from datetime import date
+import os
+
 #Instanciamos la clase animales que luego heredaremos a cada tipo de animal
 class Animales:
-    def __init__(self,nombre,edad,tamaño,dieta,especie,comidas,dormir,jugar):
+    def __init__(self,nombre,edad,tamaño,dieta,especie,comidas,dormir,jugar,imagen):
         self.nombre = nombre
         self.edad = edad
         self.tamaño = tamaño
@@ -15,6 +17,12 @@ class Animales:
         self.veces_jugar = jugar
         self.veces_jugadas = 0
         self.dia = date.today() #Se almacenara en primera instancia el dia que se crea el animal
+
+        nombre_archivo = imagen.name
+        ruta_guardado = os.path.join(os.getcwd()+'images/', nombre_archivo)
+        with open(ruta_guardado, "wb") as archivo:
+            archivo.write(imagen.getbuffer())
+        
 
     def comer(self,comida):
         dia_actual = date.today() #Tomamos el dia actual para saber si ya paso un dia y comparar las comidas diarias
@@ -73,11 +81,43 @@ class Animales:
             return (False,f'{self.nombre} no puedes jugar mas por hoy')
         
     def guardar_info(self):
-        pass
+        try:    
+            with open('info.json','r') as f:
+                data = json.loads(f.read())
+        except:
+            with open('python\ZOO\info.json','r') as f: 
+                data = json.loads(f.read())
+
+        nuevo_animal = {
+            "Nombre":self.nombre,
+            "Edad":self.edad,
+            "Tamaño": self.tamaño,
+            "Dieta":self.dieta,
+            "Temperatura":self.temperatura,
+            "Salud":self.salud,
+            "Tipo":self.tipo,
+            "Especie":self.especie,
+            "comidas_permitidas":self.comidas_permitidas,
+            "comidas_ingeridas":self.comidas_ingeridas,
+            "veces_jugar":self.veces_jugar,
+            "veces_jugadas":self.veces_jugadas,
+            "horas_sueño_permitidas":self.horas_sueño_permitidas,
+            "horas_sueño_tomadas": self.horas_sueño_tomadas,
+            "Habitat":self.habitat
+        } 
+
+        data['Animales'].append(nuevo_animal)
+
+        try:
+            with open('python\ZOO\info.json','w') as f:
+                f.write(json.dumps(data))
+        except:
+            with open('info.json','w') as f:    
+                f.write(json.dumps(data))
 
 class Insectos(Animales): #Clase insectos, heredada de Animales
-    def __init__(self, nombre, edad, tamaño, dieta, comidas,temperatura,salud,habitat):
-        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, -1, -1)  #Se definen parametros como constantes propias de los insectos
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,temperatura,salud,habitat,imagen):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, -1, -1,imagen)  #Se definen parametros como constantes propias de los insectos
         self.tipo = 'Invertebrados'                                                #Los insectos no juegan, ni duermen
         self.temperatura = temperatura                                             #Y son invertebrados
         self.salud = salud                                                         #Se inicializan las variables del objeto
@@ -90,16 +130,16 @@ class Insectos(Animales): #Clase insectos, heredada de Animales
         return f'El/la {self.nombre} es un insecto, son animales sin la capacidad de jugar'
     
 class Mamiferos(Animales): #Clase mamiferos, heredada de Animales
-    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,jugar,temperatura,salud,habitat):
-        super().__init__(nombre, edad, tamaño, dieta,'Mamiferos', comidas,dormir,jugar)  #Se usa el constructor de la clase padre
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,jugar,temperatura,salud,habitat,imagen):
+        super().__init__(nombre, edad, tamaño, dieta,'Mamiferos', comidas,dormir,jugar,imagen)  #Se usa el constructor de la clase padre
         self.tipo = 'Vertebrados'
         self.temperatura = temperatura
         self.salud = salud
         self.habitat = habitat #Esta clase no sobreescribe los metodos de la padre ya que los mamiferos realizan las 3 acciones
 
 class Aves(Animales): #Clase aves, herenciado de Animales
-    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,temperatura,salud,habitat):
-        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, dormir, -1)  
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,temperatura,salud,habitat,imagen):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, dormir, -1,imagen)  
         self.tipo = 'Vertebrados'
         self.temperatura = temperatura
         self.salud = salud
@@ -112,8 +152,8 @@ class Aves(Animales): #Clase aves, herenciado de Animales
             return f'El/la {self.nombre} es una especie demasiado grande para jugar'
     
 class Peces(Animales): #Clase Peces, heredado de animales
-    def __init__(self, nombre, edad, tamaño, dieta,vertebrado ,comidas,temperatura,salud,habitat):
-        super().__init__(nombre, edad, tamaño, dieta,'Insectos',comidas, -1, -1)  
+    def __init__(self, nombre, edad, tamaño, dieta,vertebrado ,comidas,temperatura,salud,habitat,imagen):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos',comidas, -1, -1,imagen)  
         if vertebrado:    #En la categoria de peces existen vertebrados e invertebrados, asi que se agrega un capo al constructor
             self.tipo = 'Vertebrados'
         else: 
@@ -130,8 +170,8 @@ class Peces(Animales): #Clase Peces, heredado de animales
         return f'El/la {self.nombre} es un pez, son animales sin la capacidad de jugar'
 
 class Anfibios(Animales): #Clase Anfibios, heredado de animales
-    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,temperatura,salud,habitat):
-        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas,dormir, -1)  
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,temperatura,salud,habitat,imagen):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas,dormir, -1,imagen)  
         self.tipo = 'Vertebrados'
         self.temperatura = temperatura
         self.salud = salud
@@ -141,8 +181,8 @@ class Anfibios(Animales): #Clase Anfibios, heredado de animales
         return f'El/la {self.nombre} esta dandose un chapuzon, super divertido!!!   '
 
 class Reptiles(Animales):
-    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,temperatura,salud,habitat):
-        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, dormir, -1)  
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,dormir,temperatura,salud,habitat,imagen):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, dormir, -1, imagen)  
         self.tipo = 'Vertebrados'
         self.temperatura = temperatura
         self.salud = salud
@@ -184,6 +224,10 @@ class Zoologico:
 """
 insecto_nuevo = Insectos('Hormiga',0.16,'pequeño','Omnivora',8,['Tropial','Templado','Calido'],'Saludable','Sabana')
 comida_nueva = Comida('Semillas',['Omnivora','Hervivoros'],'pequeño')
-print(insecto_nuevo.jugar())
-print(insecto_nuevo.dormir())
-print(insecto_nuevo.comer(comida=comida_nueva)[1])"""
+#print(insecto_nuevo.jugar())
+#print(insecto_nuevo.dormir())
+#print(insecto_nuevo.comer(comida=comida_nueva)[1])
+insecto_nuevo.guardar_info()
+"""
+
+print(os.getcwd())
