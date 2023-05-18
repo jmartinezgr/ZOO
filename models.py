@@ -22,6 +22,10 @@ class Animales:
         ruta_guardado = os.path.join(os.getcwd()+'images/', nombre_archivo)
         with open(ruta_guardado, "wb") as archivo:
             archivo.write(imagen.getbuffer())
+        if os.path.exists(ruta_guardado):
+            self.Imagen = ruta_guardado
+        else:
+            self.Imagen = os.path.join(os.getcwd()+'/ZOO/images/', 'imagen_generica.png')
         
 
     def comer(self,comida):
@@ -103,7 +107,8 @@ class Animales:
             "veces_jugadas":self.veces_jugadas,
             "horas_sueño_permitidas":self.horas_sueño_permitidas,
             "horas_sueño_tomadas": self.horas_sueño_tomadas,
-            "Habitat":self.habitat
+            "Habitat":self.habitat,
+            "Imagen":self.Imagen
         } 
 
         data['Animales'].append(nuevo_animal)
@@ -197,6 +202,9 @@ class Comida:
         self.dietas = dietas
         self.tamaño = tamaño
 
+class Habitat():
+    pass
+
 class Zoologico:
     def __init__(self):
         self._tipos_habitats = ["Selvatico","Desertico","Polar","Acuatico"]
@@ -229,5 +237,3 @@ comida_nueva = Comida('Semillas',['Omnivora','Hervivoros'],'pequeño')
 #print(insecto_nuevo.comer(comida=comida_nueva)[1])
 insecto_nuevo.guardar_info()
 """
-
-print(os.getcwd())
