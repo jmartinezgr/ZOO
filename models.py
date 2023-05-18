@@ -203,7 +203,20 @@ class Comida:
         self.tamaño = tamaño
 
 class Habitat():
-    pass
+    def __init__(self,nombre,tipo,espacio_dispoible,temperatura,dieta,tipo_animal,especies):
+        self.nombre = nombre
+        self.tipo = tipo
+        self.espacio_disponible = espacio_dispoible
+        self.espacio_ocupado = 0
+        self.temperatura = temperatura
+        self.dieta = dieta
+        self.tipo_animal = tipo_animal
+        self.especies = especies
+        self.animales = []
+
+    def agregar_animal(self,animal):
+        pass
+
 
 class Zoologico:
     def __init__(self):

@@ -22,6 +22,9 @@
                 "Aves",
                 "Insectos",
                 "Reptiles"
+            ],
+            "Nombre_animales":[
+                "Hormiga"
             ]
         },
         {
@@ -45,6 +48,9 @@
                 "Mamiferos",
                 "Peces",
                 "Insectos"
+            ],
+            "Nombre_animales":[
+                "Salmon"
             ]
         }
     ],
