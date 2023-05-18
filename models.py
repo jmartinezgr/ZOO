@@ -11,7 +11,7 @@ def reemplazar_enies(palabra):
             palabra[i] = palabra[i].replace('ñ',"ni/")
         return palabra
  
-def color_enies(palabra):
+def poner_enies(palabra):
     nueva = palabra.replace("ni/","ñ")
     return nueva
 
@@ -221,8 +221,32 @@ class Comida:
         self.dietas = dietas
         self.tamaño = tamaño
 
+    def cargar_info(self):
+        try:    
+            with open('info.json','r',encoding='utf-8') as f:
+                data = json.loads(f.read())
+        except:
+            with open('python\ZOO\info.json','r', encoding='utf-8') as f: 
+                data = json.loads(f.read())
+
+        info = {
+            "Nombre":reemplazar_enies(self.nombre),
+            "Dietas":reemplazar_enies(self.dietas),
+            "Tamanio": reemplazar_enies(self.tamaño)
+        }
+
+        data['Comidas'].append(info)
+
+        try:
+            with open('python\ZOO\info.json','w') as f:
+                f.write(json.dumps(data,ensure_ascii=False))
+        except:
+            with open('info.json','w') as f:    
+                f.write(json.dumps(data,ensure_ascii=False))
+        
+
 class Habitat():
-    def __init__(self,nombre,tipo,espacio_dispoible,temperatura,dieta,tipo_animal,especies):
+    def __init__(self,nombre,tipo,espacio_dispoible,temperatura,dieta,tipo_animal,especies,animales):
         self.nombre = nombre
         self.tipo = tipo
         self.espacio_disponible = espacio_dispoible
@@ -231,17 +255,66 @@ class Habitat():
         self.dieta = dieta
         self.tipo_animal = tipo_animal
         self.especies = especies
-        self.animales = []
+        self.animales = animales
 
-    def agregar_animal(self,animal):
-        pass
-        #if animal.
+    def agregar_animal(self,nombre,tamaño,dieta,especie):
+        permiso = True
+        espacio = self.espacio_disponible-self.espacio_ocupado
+        if tamaño == 'pequeño':
+            espacio_animal = 1
+        elif tamaño =='mediano':
+            espacio_animal = 2
+        elif tamaño == 'grande':
+            espacio = 3
+        
+        if espacio < espacio_animal:
+            permiso = False
 
+        if not dieta in self.dieta:
+            permiso = False
+        
+        if not especie in self.especies:
+            permiso = False
+
+        if permiso:
+            self.animales.append(nombre)
+            return True
+        else:
+            return False
+        
+    def cargar_habitat(self):
+        try:    
+            with open('info.json','r',encoding='utf-8') as f:
+                data = json.loads(f.read())
+        except:
+            with open('python\ZOO\info.json','r', encoding='utf-8') as f: 
+                data = json.loads(f.read())
+        
+        info = {
+            "Nombre": reemplazar_enies(self.nombre),
+            "Tipo":reemplazar_enies(self.tipo),
+            "Espacio_disponible": self.espacio_disponible,
+            "Espacios_ocupados": self.espacio_ocupado,
+            "Temperatura": reemplazar_enies(self.temperatura),
+            "Dieta": reemplazar_enies(self.dieta),
+            "Tipo_animal": reemplazar_enies(self.tipo_animal),
+            "Especies": reemplazar_enies(self.especies),
+            "Nombre_animales": reemplazar_enies(self.animales)
+        }
+
+        data['Habitats'].append(info)
+
+        try:
+            with open('python\ZOO\info.json','w') as f:
+                f.write(json.dumps(data,ensure_ascii=False))
+        except:
+            with open('info.json','w') as f:    
+                f.write(json.dumps(data,ensure_ascii=False))
 
 class Zoologico:
     def __init__(self):
-        self._tipos_habitats = ["Selvatico","Desertico","Polar","Acuatico"]
-        self._tipos_animales = ["Mamiferos","Invertebrados","Peces","Anfibios","Reptiles","Aves"]
+        self.tipos_habitats = ["Selvatico","Desertico","Polar","Acuatico"]
+        self.tipos_animales = ["Mamiferos","Invertebrados","Peces","Anfibios","Reptiles","Aves"]
         self.habitats = []
         self.animales = []
         self.comidas = []
@@ -249,24 +322,37 @@ class Zoologico:
     def cargarInfo(self):
         with open('info.json','r') as f:
             data = json.loads(f.read())
+
+        for habitat in data['Habitats']:
+            self.habitats.append(habitat['Nombre'])
+        
+        for animal in data['Animales']:
+            self.animales.append(animal['Nombre'])
+        
+        for comida in data['Comidas']:
+            self.comidas.append(comida['Nombre'])
+        
+    def get_animales(self):
+        return self.animales
+
+    def get_habitats(self):
+        return self.habitats
     
-    def agregar_animal(self):
-        pass
+    def get_comidas(self):
+        return self.comidas
+    
+    def get_tipos_habitats(self):
+        return self.tipos_habitats
 
-    def agregar_habitat(self):
-        pass
-
-    def mostrar_animales(self):
-        pass
-
-    def mostrar_habitats(self):
-        pass
+    def get_tipos_animales(self):
+        return self.tipos_animales
 
 class image():
     def __init__(self,nombre):
         self.name = nombre
 
 
+"""
 imagen = image('hormiga.png')
 
 insecto_nuevo = Insectos('Hormiga',0.16,'pequeño','Omnivora',8,['Tropical','Templado','Calido'],'Saludable','Sabana',imagen=imagen)
@@ -282,3 +368,16 @@ with open('info.json','r') as f:
     data = json.loads(f.read())
 
 print(data['Animales'][2])
+
+"""
+
+zoo = Zoologico()
+zoo.cargarInfo()
+for i in zoo.get_animales():
+    print(i)
+
+for j in zoo.get_habitats():
+    print(j)
+
+for k in zoo.get_comidas():
+    print(k)
