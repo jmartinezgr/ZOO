@@ -2,11 +2,12 @@ import json
 from datetime import date
 #Instanciamos la clase animales que luego heredaremos a cada tipo de animal
 class Animales:
-    def __init__(self,nombre,edad,tamaño,dieta,comidas,dormir,jugar):
+    def __init__(self,nombre,edad,tamaño,dieta,especie,comidas,dormir,jugar):
         self.nombre = nombre
         self.edad = edad
         self.tamaño = tamaño
         self.dieta = dieta
+        self.especie = especie
         self.comidas_permitidas = comidas
         self.comidas_ingeridas = 0
         self.horas_sueño_permitidas = dormir
@@ -71,9 +72,24 @@ class Animales:
             return (False,f'{self.nombre} no puedes jugar mas por hoy')
 
 class Insectos(Animales):
-    def __init__(self, nombre, edad, tamaño, dieta, comidas, dormir, jugar):
-        super().__init__(nombre, edad, tamaño, dieta, comidas, dormir, jugar)  
+    def __init__(self, nombre, edad, tamaño, dieta, comidas,temperatura,salud,habitat):
+        super().__init__(nombre, edad, tamaño, dieta,'Insectos', comidas, -1, -1)  
+        self.tipo = 'Invertebrados'
+        self.temperatura = temperatura
+        self.salud = salud
+        self.habitat = habitat
 
+    def dormir(self, horas=0):
+        return f'El/la {self.nombre} es un insecto, estos animales aunque entran en estado de reposo no tienen tiempo estimado para dormir'
+    
+    def jugar(self):
+        return f'El/la {self.nombre} es un insecto, son animales sin la capacidad de jugar'
+
+class Comida:
+    def __init__(self, nombre, dietas, tamaño):
+        self.nombre = nombre
+        self.dietas = dietas
+        self.tamaño = tamaño
 
 class Zoologico:
     def __init__(self):
@@ -98,3 +114,10 @@ class Zoologico:
 
     def mostrar_habitats(self):
         pass
+
+"""
+insecto_nuevo = Insectos('Hormiga',0.16,'pequeño','Omnivora',8,['Tropial','Templado','Calido'],'Saludable','Sabana')
+comida_nueva = Comida('Semillas',['Omnivora','Hervivoros'],'pequeño')
+print(insecto_nuevo.jugar())
+print(insecto_nuevo.dormir())
+print(insecto_nuevo.comer(comida=comida_nueva)[1])"""

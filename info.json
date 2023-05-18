@@ -25,27 +25,33 @@
             "Nombre":"Leon",
             "Edad":2,
             "Tamaño":"Mediano",
-            "Tipo_de_alimentacion":"Carnivora",
+            "Dieta":"Carnivora",
             "Temperatura":["Calido","Templado"],
             "Salud":"Saludable",
             "Tipo":"Vertebrados",
             "Especie":"Mamiferos",
-            "Comidas":5,
-            "Veces_Juego":2,
-            "Horas_sueño":8
+            "comidas_permitidas":5,
+            "comidas_ingeridas":1,
+            "veces_jugar":2,
+            "veces_jugadas":1,
+            "horas_sueño_permitidas":8,
+            "horas_sueño_tomadas": 4
         },
         {
             "Nombre":"Salmon",
-            "Edad":0.2,
+            "Edad":0.83,
             "Tamaño":"Pequeño",
-            "Tipo_de_alimentacion":"Carnivora",
+            "Dieta":"Carnivora",
             "Temperatura":["Frio","Templado"],
             "Salud":"Saludable",
             "Tipo":"Vertebrados",
             "Especie":"Peces",
-            "Comidas":3,
-            "Veces_Juego":3,
-            "Horas_sueño":4
+            "comidas_permitidas": 5,
+            "comidas_ingeridas": 2,
+            "veces_jugar": -1,
+            "veces_jugadas": -1,
+            "horas_sueño_permitidas": -1 ,
+            "horas_sueño_tomadas":-1
         }
     ]
 }
