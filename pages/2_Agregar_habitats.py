@@ -1,14 +1,18 @@
 import streamlit as st
 import models
+import time
 
 zoo = models.Zoologico()
 zoo.cargarInfo()
 
 def procesar_informacion(nombre, tipo_habitat, espacios_disponibles, temperatura, dieta, tipo_animal, especies):
     nuevo_habitat = models.Habitat(None,nombre,tipo_habitat,espacios_disponibles,temperatura,dieta,tipo_animal,especies,[])
-
-    nuevo_habitat.cargar_habitat()
-
+    if nombre in  zoo.get_habitats(): 
+        st.warning('Existe un habitat con ese mismo nombre')
+    else:
+        nuevo_habitat.cargar_habitat()
+        st.success('Habitat creado de manera correcta')
+    time.sleep(4)
     st.experimental_rerun()
 
 st.title("Formulario Habitats")
