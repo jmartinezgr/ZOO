@@ -37,17 +37,6 @@ class Animales:
             self.veces_jugadas = 0
             self.dia = date.today().isoformat() #Se almacenara en primera instancia el dia que se crea el animal
 
-            #nombre_archivo = imagen.name
-            """
-            ruta_guardado = os.path.join(os.getcwd()+'images/', nombre_archivo)
-            with open(ruta_guardado, "wb") as archivo:
-                archivo.write(imagen.getbuffer())
-            if os.path.exists(ruta_guardado):
-                self.Imagen = ruta_guardado
-            else:
-                self.Imagen = os.path.join(os.getcwd()+'/ZOO/images/', 'imagen_generica.png')"""
-            
-            #self.Imagen = " "
         else:
             self.nombre = dic['Nombre']
             self.edad = dic['Edad']
@@ -73,13 +62,7 @@ class Animales:
             self.comidas_ingeridas = 0  #Si el dia paso, se cambia la fecha almacenada y se reinicia el contador
             
         if permiso:                     #Si no hay razones para cancelar el permiso
-            for tipo in comida.dietas:    
-                #Si itera los tipos de alimetacion que tiene el alimento y se comprueba si el animal lo recibe
-                if tipo in self.dieta and self.tamaño == comida.tamaño:
-                    self.comidas_ingeridas += 1  #Si se comprueba la compatibilidad se agrega una comida en el dia
-                    return (True,f'{self.nombre} esta comiendo {comida.nombre}') #Se devuelve el mensaje que se va a imprimir por pantalla
-            #Si el tipo no es compatible, se retorna un mensaje de negacion
-            return (False, f'{comida.nombre} no esta permitido en la dieta de {self.nombre}')
+            return (True, f'{self.nombre} esta comiendo')
         else:
             #Si el animal ha comido suficientes veces
             return (False,f'{self.nombre} ya comio suficiente hoy')
@@ -87,7 +70,6 @@ class Animales:
     def dormir(self,horas=1):
         dia_actual = date.today().isoformat() #Tomamos el dia actual para saber si ya paso un dia y comparar el tiempo dormido
         permiso = True
-        print(self.horas_sueño_tomadas)
         if dia_actual == self.dia:
             if (self.horas_sueño_permitidas-self.horas_sueño_tomadas) < horas: #Comparamos el tiempo dormido en el dia y el ingresado por el usuario
                 permiso = False
@@ -98,9 +80,7 @@ class Animales:
                 permiso = False
 
         if permiso == True:
-            print(self.horas_sueño_tomadas)
             self.horas_sueño_tomadas += horas #Si el permiso es concedido, se suma las horas que se duerme 
-            print(self.horas_sueño_tomadas)
             return (True,f'{self.nombre} esta durmiendo') #Se devuelve un mensaje y una confirmacion
         else:
             return (False, f'{self.nombre} no tiene permitido esa cantidad de horas de sueño') 
@@ -110,13 +90,14 @@ class Animales:
         dia_actual = date.today().isoformat() #Comprobamos el dia actual para comparar con el almacenadao
         permiso = True
         if dia_actual == self.dia:
-            if self.veces_jugadas == self.veces_jugar: #Si se alcanzaron las veces para jugar por dia se niega la accion
+            if self.veces_jugadas >= self.veces_jugar: #Si se alcanzaron las veces para jugar por dia se niega la accion
                 permiso = False
         else:
             self.dia = dia_actual #Se actualiza el dia
             self.veces_jugadas = 0 #Se reinicia el contador
         
         if permiso:
+            self.veces_jugadas+=1
             return (True, f'{self.nombre} esta jugando')
         else:
             return (False,f'{self.nombre} no puedes jugar mas por hoy')
@@ -178,10 +159,10 @@ class Insectos(Animales): #Clase insectos, heredada de Animales
             self.habitat = dic['Habitat']
 
     def dormir(self, horas=0): #Se sobreescribe y sobrecarga el metodo dormir, ya que los insectos tienen estado de reposo
-        return f'El/la {self.nombre} es un insecto, estos animales aunque entran en estado de reposo no tienen tiempo estimado para dormir'
+        return (True, f'El/la {self.nombre} es un insecto, estos animales aunque entran en estado de reposo no tienen tiempo estimado para dormir')
     
     def jugar(self): #Se sobrescribe el metodo jugar, ya que los insectos no tienen esa capacidad
-        return f'El/la {self.nombre} es un insecto, son animales sin la capacidad de jugar'
+        return (False, f'El/la {self.nombre} es un insecto, son animales sin la capacidad de jugar')
     
 class Mamiferos(Animales): #Clase mamiferos, heredada de Animales
     def __init__(self,dic=None,nombre=None, edad=None, tamaño=None, dieta=None, comidas=None,dormir=None,jugar=None,temperatura=None,salud=None,habitat=None):
@@ -213,9 +194,9 @@ class Aves(Animales): #Clase aves, herenciado de Animales
 
     def jugar(self): #Se sobre escribe el metodo jugar de la clase aves, dependiendo de su tamaño
         if self.tamaño == 'pequeño':
-            return f'El/la {self.nombre} le tiraste semillas, y vino revoloteando' 
+            return (True,f'El/la {self.nombre} le tiraste semillas, y vino revoloteando')
         else:
-            return f'El/la {self.nombre} es una especie demasiado grande para jugar'
+            return (False,f'El/la {self.nombre} es una especie demasiado grande para jugar')
     
 class Peces(Animales): #Clase Peces, heredado de animales
     def __init__(self,dic = None, nombre=None, edad=None, tamaño=None, dieta=None,vertebrado = None ,comidas=None,temperatura=None,salud=None,habitat=None):
@@ -236,10 +217,10 @@ class Peces(Animales): #Clase Peces, heredado de animales
             self.habitat = dic['Habitat']
 
     def dormir(self, horas=0): #Se sobre escribe el metodo dormir
-        return f'El/la {self.nombre} es un pez, estos animales aunque entran en estado de reposo no tienen tiempo estimado para dormir'
+        return (True, f'El/la {self.nombre} es un pez, estos animales aunque entran en estado de reposo no tienen tiempo estimado para dormir')
     
     def jugar(self): #Se sobreescribe el metodo jugar
-        return f'El/la {self.nombre} es un pez, son animales sin la capacidad de jugar'
+        return (False,f'El/la {self.nombre} es un pez, son animales sin la capacidad de jugar')
 
 class Anfibios(Animales): #Clase Anfibios, heredado de animales
     def __init__(self,dic=None, nombre=None, edad=None, tamaño=None, dieta=None, comidas=None,dormir=None,temperatura=None,salud=None,habitat=None):
@@ -256,7 +237,7 @@ class Anfibios(Animales): #Clase Anfibios, heredado de animales
             self.habitat = dic['Habitat']
 
     def jugar(self): #Se sobreescribe el metodo jugar 
-        return f'El/la {self.nombre} esta dandose un chapuzon, super divertido!!!   '
+        return (True,f'El/la {self.nombre} esta dandose un chapuzon, super divertido!!!)  ')
 
 class Reptiles(Animales):
     def __init__(self,dic=None,nombre=None, edad=None, tamaño=None, dieta=None, comidas=None,dormir=None,temperatura=None,salud=None,habitat=None):
@@ -273,37 +254,9 @@ class Reptiles(Animales):
             self.habitat = dic['Habitat']
 
     def jugar(self): #Se sobre escribe el metodo jugar
-        return f'El/la {self.nombre} esta tomando el sol, esta bastante relajado'
+        return (True,f'El/la {self.nombre} esta tomando el sol, esta bastante relajado')
 
-class Comida:
-    def __init__(self, nombre, dietas, tamaño):
-        self.nombre = nombre
-        self.dietas = dietas
-        self.tamaño = tamaño
 
-    def cargar_info(self):
-        try:    
-            with open('info.json','r',encoding='utf-8') as f:
-                data = json.loads(f.read())
-        except:
-            with open('python\ZOO\info.json','r', encoding='utf-8') as f: 
-                data = json.loads(f.read())
-
-        info = {
-            "Nombre":reemplazar_enies(self.nombre),
-            "Dietas":reemplazar_enies(self.dietas),
-            "Tamanio": reemplazar_enies(self.tamaño)
-        }
-
-        data['Comidas'].append(info)
-
-        try:
-            with open('python\ZOO\info.json','w') as f:
-                f.write(json.dumps(data,ensure_ascii=False))
-        except:
-            with open('info.json','w') as f:    
-                f.write(json.dumps(data,ensure_ascii=False))
-        
 
 class Habitat():
     def __init__(self,dic=None,nombre=None,tipo=None,espacio_dispoible=None,temperatura=None,dieta=None,tipo_animal=None,especies=None,animales=None):
@@ -331,24 +284,35 @@ class Habitat():
     def agregar_animal(self,nombre,tamaño,dieta,especie):
         permiso = True
         espacio = self.espacio_disponible-self.espacio_ocupado
-        if tamaño == 'pequeño':
+        if tamaño == 'Pequeño':
             espacio_animal = 1
-        elif tamaño =='mediano':
+        elif tamaño =='Mediano':
             espacio_animal = 2
-        elif tamaño == 'grande':
+        elif tamaño == 'Grande':
             espacio = 3
-        
         if espacio < espacio_animal:
-            permiso = False
-
+             permiso = False
         if not dieta in self.dieta:
             permiso = False
         
-        if not especie in self.especies:
+        if not(especie in self.especies):
             permiso = False
 
         if permiso:
-            self.animales.append(nombre)
+            try:    
+                with open('info.json','r') as f:
+                    data = json.loads(f.read())
+            except:
+                with open('python\ZOO\info.json','r') as f: 
+                    data = json.loads(f.read())
+
+            for i in range(len(data['Habitats'])):
+                if data['Habitats'][i]['Nombre'] == self.nombre:
+                    data['Habitats'][i]['Nombre_animales'].append(nombre)
+                    data['Habitats'][i]['Espacios_ocupados'] +=1
+
+            with open('info.json','w') as f:    
+                f.write(json.dumps(data))
             return True
         else:
             return False
@@ -395,9 +359,7 @@ class Zoologico:
         
         for animal in data['Animales']:
             self.animales.append(animal['Nombre'])
-        
-        for comida in data['Comidas']:
-            self.comidas.append(comida['Nombre'])
+
         
     def get_animales(self):
         return self.animales
@@ -405,32 +367,9 @@ class Zoologico:
     def get_habitats(self):
         return self.habitats
     
-    def get_comidas(self):
-        return self.comidas
-    
     def get_tipos_habitats(self):
         return self.tipos_habitats
 
     def get_tipos_animales(self):
         return self.tipos_animales
 
-
-
-"""
-
-imagen = image('hormiga.png')
-
-insecto_nuevo = Insectos(None,'Hormiga',0.16,'pequeño','Omnivora',8,['Tropical','Templado','Calido'],'Saludable','Sabana')
-comida_nueva = Comida('Semillas',['Omnivora','Hervivoros'],'pequeño')
-#print(insecto_nuevo.jugar())
-#print(insecto_nuevo.dormir())
-#print(insecto_nuevo.comer(comida=comida_nueva)[1])
-insecto_nuevo.guardar_info()
-
-
-with open('info.json','r') as f: 
-    data = json.loads(f.read())
-
-print(data['Animales'][2])
-
-"""  

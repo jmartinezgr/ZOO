@@ -1,1 +1,169 @@
-{"Habitats": [{"Nombre": "Sabana", "Tipo": ["Selvatico", "Desertico"], "Espacio_disponible": 5, "Espacios_ocupados": 2, "Temperatura": "Calido", "Dieta": ["Carnivora", "Omnivora"], "Tipo_animal": ["Vertebrados", "Invertebrados"], "Especies": ["Mamiferos", "Aves", "Insectos", "Reptiles"], "Nombre_animales": ["Leon", "Hormiga"]}, {"Nombre": "Oceano", "Tipo": ["Acuatico"], "Espacio_disponible": 10, "Espacios_ocupados": 1, "Temperatura": "Fria", "Dieta": ["Carnivora", "Omnivora", "Hervibora"], "Tipo_animal": ["Vertebrados", "Invertebrados"], "Especies": ["Mamiferos", "Peces", "Insectos"], "Nombre_animales": ["Salmon"]}], "Animales": [{"Nombre": "Leon", "Edad": 2, "Tamanio": "Mediano", "Dieta": "Carnivora", "Temperatura": ["Calido", "Templado"], "Salud": "Saludable", "Tipo": "Vertebrados", "Especie": "Mamiferos", "comidas_permitidas": 5, "comidas_ingeridas": 1, "veces_jugar": 2, "veces_jugadas": 1, "horas_suenio_permitidas": 8, "horas_suenio_tomadas": 2, "Habitat": "Sabana", "Dia": "2023-05-18"}, {"Nombre": "Salmon", "Edad": 0.83, "Tamanio": "Pequeni/o", "Dieta": "Carnivora", "Temperatura": ["Frio", "Templado"], "Salud": "Saludable", "Tipo": "Vertebrados", "Especie": "Peces", "comidas_permitidas": 5, "comidas_ingeridas": 2, "veces_jugar": -1, "veces_jugadas": -1, "horas_suenio_permitidas": -1, "horas_suenio_tomadas": -1, "Habitat": "Oceano", "Dia": "2023-05-18"}, {"Nombre": "Hormiga", "Edad": 0.16, "Tamanio": "pequeni/o", "Dieta": "Omnivora", "Temperatura": ["Tropical", "Templado", "Calido"], "Salud": "Saludable", "Tipo": "Invertebrados", "Especie": "Insectos", "comidas_permitidas": 8, "comidas_ingeridas": 0, "veces_jugar": -1, "veces_jugadas": 0, "horas_suenio_permitidas": -1, "horas_suenio_tomadas": 0, "Habitat": "Sabana", "Dia": "2023-05-18"}], "Comidas": [{"Nombre": "Bufalo", "Dietas": ["Carnivora", "Omnivora"], "Tamanio": "grande"}]}
+{
+    "Habitats": [
+        {
+            "Nombre": "Sabana",
+            "Tipo": [
+                "Selvatico",
+                "Desertico"
+            ],
+            "Espacio_disponible": 5,
+            "Espacios_ocupados": 2,
+            "Temperatura": "Calido",
+            "Dieta": [
+                "Carnivora",
+                "Omnivora"
+            ],
+            "Tipo_animal": [
+                "Vertebrados",
+                "Invertebrados"
+            ],
+            "Especies": [
+                "Mamiferos",
+                "Aves",
+                "Insectos",
+                "Reptiles"
+            ],
+            "Nombre_animales": [
+                "Leon",
+                "Hormiga",
+                "Tigre"
+            ]
+        },
+        {
+            "Nombre": "Oceano",
+            "Tipo": [
+                "Acuatico"
+            ],
+            "Espacio_disponible": 10,
+            "Espacios_ocupados": 1,
+            "Temperatura": "Fria",
+            "Dieta": [
+                "Carnivora",
+                "Omnivora",
+                "Hervibora"
+            ],
+            "Tipo_animal": [
+                "Vertebrados",
+                "Invertebrados"
+            ],
+            "Especies": [
+                "Mamiferos",
+                "Peces",
+                "Insectos"
+            ],
+            "Nombre_animales": [
+                "Salmon"
+            ]
+        },
+        {
+            "Nombre": "Selva",
+            "Tipo": [
+                "Selvatico"
+            ],
+            "Espacio_disponible": 10,
+            "Espacios_ocupados": 0,
+            "Temperatura": "Tropical",
+            "Dieta": [
+                "Carnivora",
+                "Omnivora",
+                "Vegetariana"
+            ],
+            "Tipo_animal": [
+                "Vertebrados",
+                "Invertebrados"
+            ],
+            "Especies": [
+                "Mamiferos",
+                "Aves",
+                "Insectos",
+                "Reptiles",
+                "Anfibios"
+            ],
+            "Nombre_animales": []
+        }
+    ],
+    "Animales": [
+        {
+            "Nombre": "Leon",
+            "Edad": 2,
+            "Tamanio": "Mediano",
+            "Dieta": "Carnivora",
+            "Temperatura": [
+                "Calido",
+                "Templado"
+            ],
+            "Salud": "Saludable",
+            "Tipo": "Vertebrados",
+            "Especie": "Mamiferos",
+            "comidas_permitidas": 5,
+            "comidas_ingeridas": 1,
+            "veces_jugar": 2,
+            "veces_jugadas": 2,
+            "horas_suenio_permitidas": 8,
+            "horas_suenio_tomadas": 5,
+            "Habitat": "Sabana",
+            "Dia": "2023-05-18"
+        },
+        {
+            "Nombre": "Salmon",
+            "Edad": 0.83,
+            "Tamanio": "Pequeni/o",
+            "Dieta": "Carnivora",
+            "Temperatura": [
+                "Frio",
+                "Templado"
+            ],
+            "Salud": "Saludable",
+            "Tipo": "Vertebrados",
+            "Especie": "Peces",
+            "comidas_permitidas": 5,
+            "comidas_ingeridas": 2,
+            "veces_jugar": -1,
+            "veces_jugadas": -1,
+            "horas_suenio_permitidas": -1,
+            "horas_suenio_tomadas": -1,
+            "Habitat": "Oceano",
+            "Dia": "2023-05-18"
+        },
+        {
+            "Nombre": "Hormiga",
+            "Edad": 0.16,
+            "Tamanio": "pequeni/o",
+            "Dieta": "Omnivora",
+            "Temperatura": [
+                "Tropical",
+                "Templado",
+                "Calido"
+            ],
+            "Salud": "Saludable",
+            "Tipo": "Invertebrados",
+            "Especie": "Insectos",
+            "comidas_permitidas": 8,
+            "comidas_ingeridas": 0,
+            "veces_jugar": -1,
+            "veces_jugadas": 0,
+            "horas_suenio_permitidas": -1,
+            "horas_suenio_tomadas": 0,
+            "Habitat": "Sabana",
+            "Dia": "2023-05-18"
+        },
+        {
+            "Nombre": "Tigre",
+            "Edad": 1,
+            "Tamanio": "Mediano",
+            "Dieta": "Carnivora",
+            "Temperatura": "Frio",
+            "Salud": "Saludable",
+            "Tipo": "Vertebrados",
+            "Especie": "Mamiferos",
+            "comidas_permitidas": 1,
+            "comidas_ingeridas": 0,
+            "veces_jugar": 4,
+            "veces_jugadas": 0,
+            "horas_suenio_permitidas": 4,
+            "horas_suenio_tomadas": 0,
+            "Habitat": "Sabana",
+            "Dia": "2023-05-18"
+        }
+    ]
+}
