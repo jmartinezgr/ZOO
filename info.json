@@ -34,8 +34,8 @@
             "Tipo": [
                 "Acuatico"
             ],
-            "Espacio_disponible": 10,
-            "Espacios_ocupados": 1,
+            "Espacio_disponible": 9,
+            "Espacios_ocupados": 7,
             "Temperatura": "Fria",
             "Dieta": [
                 "Carnivora",
@@ -61,7 +61,7 @@
                 "Selvatico"
             ],
             "Espacio_disponible": 10,
-            "Espacios_ocupados": 0,
+            "Espacios_ocupados": 4,
             "Temperatura": "Tropical",
             "Dieta": [
                 "Carnivora",
@@ -79,7 +79,11 @@
                 "Reptiles",
                 "Anfibios"
             ],
-            "Nombre_animales": []
+            "Nombre_animales": [
+                "Loro",
+                "Leopardo",
+                "Salamandra"
+            ]
         }
     ],
     "Animales": [
@@ -100,9 +104,9 @@
             "veces_jugar": 2,
             "veces_jugadas": 2,
             "horas_suenio_permitidas": 8,
-            "horas_suenio_tomadas": 5,
+            "horas_suenio_tomadas": 2,
             "Habitat": "Sabana",
-            "Dia": "2023-05-18"
+            "Dia": "2023-05-19"
         },
         {
             "Nombre": "Salmon",
@@ -164,6 +168,96 @@
             "horas_suenio_tomadas": 0,
             "Habitat": "Sabana",
             "Dia": "2023-05-18"
+        },
+        {
+            "Nombre": "Pulpo",
+            "Edad": 0,
+            "Tamanio": "Pequeni/o",
+            "Dieta": "Carnivora",
+            "Temperatura": "Frio",
+            "Salud": "Saludable",
+            "Tipo": "Invertebrado",
+            "Especie": "Peces",
+            "comidas_permitidas": 1,
+            "comidas_ingeridas": 0,
+            "veces_jugar": -1,
+            "veces_jugadas": 0,
+            "horas_suenio_permitidas": -1,
+            "horas_suenio_tomadas": 0,
+            "Habitat": "Oceano",
+            "Dia": "2023-05-19"
+        },
+        {
+            "Nombre": "Delfin",
+            "Edad": 2,
+            "Tamanio": "Mediano",
+            "Dieta": "Omnivora",
+            "Temperatura": "Frio",
+            "Salud": "En Recuperaci\u00f3n",
+            "Tipo": "Vertebrado",
+            "Especie": "Peces",
+            "comidas_permitidas": 5,
+            "comidas_ingeridas": 0,
+            "veces_jugar": -1,
+            "veces_jugadas": 0,
+            "horas_suenio_permitidas": -1,
+            "horas_suenio_tomadas": 0,
+            "Habitat": "Oceano",
+            "Dia": "2023-05-19"
+        },
+        {
+            "Nombre": "Loro",
+            "Edad": 1,
+            "Tamanio": "Pequeni/o",
+            "Dieta": "Omnivora",
+            "Temperatura": "Tropical",
+            "Salud": "Enfermo",
+            "Tipo": "Vertebrados",
+            "Especie": "Aves",
+            "comidas_permitidas": 4,
+            "comidas_ingeridas": 0,
+            "veces_jugar": -1,
+            "veces_jugadas": 0,
+            "horas_suenio_permitidas": 10,
+            "horas_suenio_tomadas": 1,
+            "Habitat": "Selva",
+            "Dia": "2023-05-19"
+        },
+        {
+            "Nombre": "Leopardo",
+            "Edad": 2,
+            "Tamanio": "Mediano",
+            "Dieta": "Carnivora",
+            "Temperatura": "Tropical",
+            "Salud": "Saludable",
+            "Tipo": "Vertebrados",
+            "Especie": "Mamiferos",
+            "comidas_permitidas": 5,
+            "comidas_ingeridas": 0,
+            "veces_jugar": 4,
+            "veces_jugadas": 0,
+            "horas_suenio_permitidas": 6,
+            "horas_suenio_tomadas": 0,
+            "Habitat": "Selva",
+            "Dia": "2023-05-19"
+        },
+        {
+            "Nombre": "Salamandra",
+            "Edad": 2,
+            "Tamanio": "Pequeni/o",
+            "Dieta": "Omnivora",
+            "Temperatura": "Frio",
+            "Salud": "En Recuperacion",
+            "Tipo": "Vertebrados",
+            "Especie": "Anfibios",
+            "comidas_permitidas": 3,
+            "comidas_ingeridas": 0,
+            "veces_jugar": -1,
+            "veces_jugadas": 0,
+            "horas_suenio_permitidas": 5,
+            "horas_suenio_tomadas": 0,
+            "Habitat": "Selva",
+            "Dia": "2023-05-19"
         }
     ]
 }

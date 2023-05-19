@@ -3,7 +3,6 @@ import models
 import consulta
 import time
 
-
 def accion(num,animal):
     if num==1:
         info = animal.comer("Comida")

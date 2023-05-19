@@ -201,12 +201,8 @@ class Aves(Animales): #Clase aves, herenciado de Animales
 class Peces(Animales): #Clase Peces, heredado de animales
     def __init__(self,dic = None, nombre=None, edad=None, tamaño=None, dieta=None,vertebrado = None ,comidas=None,temperatura=None,salud=None,habitat=None):
         super().__init__(dic=dic,nombre=nombre, edad=edad, tamaño=tamaño, dieta=dieta,especie='Peces',comidas=comidas,dormir=-1, jugar=-1)  
-        if dic == None:
-            if vertebrado:    #En la categoria de peces existen vertebrados e invertebrados, asi que se agrega un capo al constructor
-                self.tipo = 'Vertebrados'
-            else: 
-                self.tipo = 'Invertebrados' 
-
+        if dic == None:    #En la categoria de peces existen vertebrados e invertebrados, asi que se agrega un capo al constructor
+            self.tipo = vertebrado
             self.temperatura = temperatura
             self.salud = salud
             self.habitat = habitat
@@ -256,8 +252,6 @@ class Reptiles(Animales):
     def jugar(self): #Se sobre escribe el metodo jugar
         return (True,f'El/la {self.nombre} esta tomando el sol, esta bastante relajado')
 
-
-
 class Habitat():
     def __init__(self,dic=None,nombre=None,tipo=None,espacio_dispoible=None,temperatura=None,dieta=None,tipo_animal=None,especies=None,animales=None):
         if dic==None:
@@ -289,7 +283,7 @@ class Habitat():
         elif tamaño =='Mediano':
             espacio_animal = 2
         elif tamaño == 'Grande':
-            espacio = 3
+            espacio_animal = 3
         if espacio < espacio_animal:
              permiso = False
         if not dieta in self.dieta:
@@ -317,7 +311,7 @@ class Habitat():
         else:
             return False
         
-    def cargar_habitat(self):
+    def cargar_habitat(self,tipo='c'):
         try:    
             with open('info.json','r') as f:
                 data = json.loads(f.read())
@@ -336,8 +330,13 @@ class Habitat():
             "Especies": reemplazar_enies(self.especies),
             "Nombre_animales": reemplazar_enies(self.animales)
         }
-
-        data['Habitats'].append(info)
+        
+        if tipo == 'c':
+            data['Habitats'].append(info)
+        else:
+            for i in range(len(data['Habitats'])):
+                if data['Habitats'][i]['Nombre'] == self.nombre:
+                    data['Habitats'][i] = info
 
         with open('info.json','w') as f:    
                 f.write(json.dumps(data))
