@@ -69,7 +69,7 @@ _You can find more information on how to start and handle a Streamlit applicatio
 
 ## License 📄
 
-This project is under the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 - check the [LICENSE.md](LICENSE.md)file for more details.
+This project is under the GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007 - check the [LICENSE.md](LICENSE.md) file for more details.
 
 ---
 
